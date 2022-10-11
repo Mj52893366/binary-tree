@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+typedef struct BiNode{
+    struct BiNode *lchild;
+    struct BiNode *rchild;
+    char data;
+}*BiTree,BiNode;
+
+char c;
+
+void CreatBiTree(BiTree &T){
+    char c;
+    cin>>c;
+    if(c == '#') T = NULL;
+    else{
+        T = new BiNode;
+        T->data = c;
+        CreatBiTree(T->lchild);
+        CreatBiTree(T->rchild);
+    }
+}
+
+void InOrderTraverse(BiTree &T){
+    if(T){
+        cout<<T->data;
+        InOrderTraverse(T->lchild);
+        InOrderTraverse(T->rchild);
+    }
+}
+
+void Delete(BiTree &T){
+    if(!T)
+        return;
+    Delete(T->lchild);
+    Delete(T->rchild);
+    delete T;
+}
+
+void Delete_c(BiTree &T){
+    if(T){
+        if(T->data==c){
+            Delete(T);
+            T = NULL;
+        }
+        if(T!=NULL){		 
+            Delete_c(T->lchild);
+            Delete_c(T->rchild);
+        }
+    }
+}
+
+
+int main(){
+    BiTree T;
+    CreatBiTree(T);
+    cin>>c;
+    Delete_c(T);
+    InOrderTraverse(T);
+}
