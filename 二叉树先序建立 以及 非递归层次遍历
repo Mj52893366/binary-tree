@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef struct BiNode{
+    char data;
+    BiNode *lchild;
+    BiNode *rchild;
+}BiNode,*BiTree;
+
+void InitTree(BiTree &T){
+    T = new BiNode;
+    T = NULL;
+}
+void CreatBiTree(BiTree &T)
+{
+    char a;
+    cin >> a;
+    if (a =='*'){
+        T = NULL;
+    } else{
+        T = new BiNode;
+        T->data = a;
+        CreatBiTree(T->lchild);
+        CreatBiTree(T->rchild);
+    }
+}
+void InorderTraverse(BiTree &T){
+    queue<BiTree> q;
+    if (T!=NULL){
+        q.push(T);
+    }
+    while (!q.empty()){
+        T = q.front();
+        q.pop();
+        cout<<T->data<<" ";
+        if (T->lchild != NULL)
+            q.push(T->lchild);
+        if (T->rchild!=NULL)
+            q.push(T->rchild);
+    }
+}
+void levelOrder(BiTree BT)
+{
+
+    queue<BiTree> q;
+    if (BT != NULL)
+    {
+
+        q.push(BT);
+    }
+}
+int main()
+{
+    BiTree T;
+    InitTree(T);
+    CreatBiTree(T);
+    InorderTraverse(T);
+}
