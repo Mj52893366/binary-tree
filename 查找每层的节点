@@ -31,22 +31,21 @@ void InorderTraverse(BiTree &T)
         return;
     }
     int num[10]={0},i = 1;
-    queue<BiTree> q;
+    BiTree q[50];int front=0,rear = 0;
     if (T){
-        q.push(T);
+        q[rear++] = T;
         num[i] = 1;               //第一层入队,第一层有一个节点
     }
-    while (!q.empty()){
-        T = q.front();
-        q.pop();                    //出队
+    while (rear!=front){
+        T = q[front++];
         num[i]-=1;                //上一层层的节点-1
         if (T->lchild){             //有左孩子 当前层孩子+1
             num[i+1]++;
-            q.push(T->lchild);      //入队
+            q[rear++] = T->lchild;      //入队
         }
         if (T->rchild){             //有右孩子 当前层孩子+1
             num[i+1]++;
-            q.push(T->rchild);
+            q[rear++]=T->rchild;
         }
         if (num[i] == 0){         //判断当前层是否完毕
             if (num[i+1] == number){  //如果完毕 则判断其节点是否等于number
