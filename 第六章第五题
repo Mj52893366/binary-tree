@@ -1,0 +1,42 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+using namespace std;
+typedef struct BiNode {
+    BiNode* lichid;
+    BiNode* rchild;
+    char data;
+}BiNode, * BiTree;
+void Creat(BiTree& T) {
+    char a;
+    scanf("%c ", &a);    //%c 后面有空格
+    if (a == '*') {
+        T = NULL;
+        return;
+    }
+    else {
+        T = new BiNode;
+        T->data = a;
+        Creat(T->lichid);
+        Creat(T->rchild);
+    }
+}
+void tra(BiTree T) {
+    BiTree s[50]; int front = 0, rear = 0;
+    if (T) {
+        s[rear++] = T;
+    }
+    while (front != rear) {
+        BiNode* p = s[front++];
+        cout << p->data << " ";
+        if (p->lichid)
+            s[rear++] = p->lichid;
+        if (p->rchild)
+            s[rear++] = p->rchild;
+    }
+}
+int main() {
+    BiTree T;
+    Creat(T);
+    tra(T);
+}
