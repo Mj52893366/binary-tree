@@ -1,0 +1,61 @@
+#include <iostream>
+
+using namespace std;
+typedef struct BiNode{
+    BiNode *lichid;
+    BiNode *rchild;
+    char data;
+}BiNode,*BiTree;
+void Creat(BiTree &T){
+    char a;
+    scanf("%c,",&a);
+    if (a == ' ') T  = NULL;
+    else{
+        T  = new BiNode;
+        T->data = a;
+        Creat(T->lichid);
+        Creat(T->rchild);
+    }
+}
+void swap(BiTree &T){
+    if (T){
+        if (T->lichid!=NULL && T->rchild!=NULL){
+            BiNode *temp = T->lichid;
+            T->lichid = T->rchild;
+            T->rchild = temp;
+        } else if(T->lichid!=NULL && T->rchild == NULL){
+            T->rchild = T->lichid;
+            T->lichid = NULL;
+        } else if (T->lichid == NULL && T->rchild!=NULL){
+            T->lichid = T->rchild;
+            T->rchild = NULL;
+        }
+    }
+    if (T->lichid!=NULL)
+        swap(T->lichid);
+    if (T->rchild!=NULL)
+        swap(T->rchild);
+}
+void xian(BiTree T){
+    if (T){
+        cout<<T->data;
+        xian(T->lichid);
+        xian(T->rchild);
+    }
+}
+void zhong(BiTree T){
+    if (T){
+        zhong(T->lichid);
+        cout << T->data;
+        zhong(T->rchild);
+    }
+}
+int main()
+{
+    BiTree T;
+    Creat(T);
+    swap(T);
+    xian(T);
+    cout<<"\n";
+    zhong(T);
+}
