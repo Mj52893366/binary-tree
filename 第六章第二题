@@ -1,0 +1,57 @@
+#include <iostream>
+
+using namespace std;
+typedef struct BiNode{
+    BiNode *lchild;
+    BiNode *rchild;
+    char data;
+}BiNode,*BiTree;
+ void Creat(BiTree &T){
+     char a;
+     cin>>a;
+     if (a == '*') {
+         T = NULL;
+         return;
+     } else{
+         T = (BiNode*) malloc(sizeof (BiNode));
+         T->data = a;
+         Creat(T->lchild);
+         Creat(T->rchild);
+     }
+ }
+
+ void zTra(BiTree T){
+     if (T){
+         zTra(T->lchild);
+         cout<<T->data<<" ";
+         zTra(T->rchild);
+     }
+ }
+
+ void copy(BiTree T)
+{
+     BiTree stack[50];int base = 0,top = 0;
+     BiNode *p = T;
+    while (p || top!=base)
+    {
+        while (p){
+            stack[top++]=p;
+            p = p->lchild;
+        }
+        if (top!=base){
+            p = stack[--top];
+            cout << p->data << " ";
+            p = p ->rchild;
+        }
+    }
+
+}
+
+
+int main(){
+     BiTree T,T1;
+     Creat(T);
+    zTra(T);
+    cout << "\n";
+    copy(T);
+ }
